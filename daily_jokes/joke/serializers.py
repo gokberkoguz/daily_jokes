@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from models.joke import Joke
+from .models import Joke
 
 
 class JokeSerializer(serializers.ModelSerializer):
@@ -12,5 +12,5 @@ class JokeSerializer(serializers.ModelSerializer):
         model = Joke
 
         fields = ["author", "joke", "answer", "rate"]
-        read_only_fields = fields
+        #read_only_fields = fields
         ref_name = "daily_jokes_joke"

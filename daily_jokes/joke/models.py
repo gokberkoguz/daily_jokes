@@ -23,10 +23,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Joke(models.Model):
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     joke = models.CharField(unique=True, blank=True, max_length=255)
-    answer = models.CharField(unique=True, blank=True, max_length=255)
+    answer = models.CharField(unique=False, blank=True, max_length=255)
     rate = models.FloatField(default=0, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
     vote_count = models.IntegerField(default=0)
-    is_used = models.BooleanField() #If used, we can prevent repeated jokes by updating it to True.
+    is_used = models.BooleanField(default=False) #If used, we can prevent repeated jokes by updating it to True.
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

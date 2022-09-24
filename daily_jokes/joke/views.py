@@ -1,21 +1,23 @@
 from rest_framework import generics
-from rest_framework_tracking.mixins import LoggingMixin
 from rest_framework.response import Response
 from rest_framework import status
 
-from serializers.joke import JokeSerializer
+
+from .serializers import JokeSerializer
+from .models import Joke
 
 
-class JokeList(LoggingMixin, generics.ListAPIView):
-    """List all jokes."""
-
+class JokeViewSet(generics.ListCreateAPIView):
     serializer_class = JokeSerializer
+
+    def get_queryset(self):
+        return Joke.objects.all()
 
     def create(self, request, *args, **kwargs):
         """
-        Creates a new Report.
+        Creates a new Joke.
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(created_by=self.request.user)
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

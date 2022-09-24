@@ -1,10 +1,13 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from .views.joke import JokeList
-
+from .views import JokeViewSet
 
 app_name = "jokes"
 
 router = routers.DefaultRouter()
-router.register(r"joke_list", JokeList, basename="joke_list")
+
+urlpatterns = [
+    path('', include(router.urls)),
+    path('joke/', JokeViewSet.as_view(), name='joke')
+]
