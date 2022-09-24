@@ -11,6 +11,9 @@ class JokeViewSet(generics.ListCreateAPIView):
     serializer_class = JokeSerializer
 
     def get_queryset(self):
+        """
+        Return all Jokes.
+        """
         return Joke.objects.all()
 
     def create(self, request, *args, **kwargs):
@@ -19,5 +22,5 @@ class JokeViewSet(generics.ListCreateAPIView):
         """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

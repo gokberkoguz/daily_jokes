@@ -24,10 +24,10 @@ class JokeAdmin(admin.ModelAdmin):
     Object Permission via Django Admin interface
     """
 
-    list_display = ("author", "joke", "answer", "rate", "vote_count", "created_at")
+    list_display = ("user", "joke", "answer", "rate", "vote_count", "created_at")
     # list_filter = [('created_at', DateTimeRangeFilter)]
-    search_fields = ["author"]
-    list_display_links = ["author", "joke", "answer"]
+    search_fields = ["user"]
+    list_display_links = ["user", "joke", "answer"]
     list_per_page = LIST_PER_PAGE
 
 
