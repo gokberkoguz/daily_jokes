@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models.joke import Joke
-from .models.user import User
+from .models import Joke
+from .models import User
 
 LIST_PER_PAGE = 25
 
@@ -11,13 +11,12 @@ class UserAdmin(admin.ModelAdmin):
     Object Permission via Django Admin interface
     """
 
-    readonly_fields = ["name"]
-    list_display = ("name", "email", "is_author")
+    list_display = ("email", "is_author")
     # list_filter = [('created_at', DateTimeRangeFilter)]
     search_fields = ["email"]
-    list_display_links = ["name", "email"]
+    list_display_links = ["email"]
     list_per_page = LIST_PER_PAGE
-
+    exclude = ('password',)
 
 class JokeAdmin(admin.ModelAdmin):
     """
@@ -25,7 +24,6 @@ class JokeAdmin(admin.ModelAdmin):
     Object Permission via Django Admin interface
     """
 
-    readonly_fields = ["author"]
     list_display = ("author", "joke", "answer", "rate", "vote_count", "created_at")
     # list_filter = [('created_at', DateTimeRangeFilter)]
     search_fields = ["author"]
